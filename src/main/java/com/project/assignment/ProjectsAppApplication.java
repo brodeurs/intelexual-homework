@@ -26,59 +26,26 @@ public class ProjectsAppApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(ProjectRepository repository, UserRepository userRepository, FileRepository fileRepository) {
+    public CommandLineRunner demo(ProjectRepository projectRepository, UserRepository userRepository, FileRepository fileRepository) {
         return (args) -> {
             // save a few customers
 
             Project project = new Project("first", new Date(Calendar.getInstance().getTimeInMillis()));
+
+            projectRepository.save(project);
+
             User user = new User("Bilbo Baggins", "a@b.com");
             File file = new File("My File", "Text");
 
             userRepository.save(user);
+            fileRepository.save(file);
 
+            project.getUsers().add(user);
+            project.getFiles().add(file);
 
-            Set<User> users = new HashSet<>();
-            users.add(user);
+            projectRepository.save(project);
 
-            project.setUsers(users);
-
-
-//            fileRepository.save(file);
-            repository.save(project);
-
-
-//            // fetch all customers
-//            log.info("Customers found with findAll():");
-//            log.info("-------------------------------");
-//            for (Customer customer : repository.findAll()) {
-//                log.info(customer.toString());
-//            }
-//            log.info("");
-//
-//            // fetch an individual customer by ID
-//            Customer customer = repository.findById(1L);
-//            log.info("Customer found with findById(1L):");
-//            log.info("--------------------------------");
-//            log.info(customer.toString());
-//            log.info("");
-//
-//            // fetch customers by last name
-//            log.info("Customer found with findByLastName('Bauer'):");
-//            log.info("--------------------------------------------");
-//            repository.findByLastName("Bauer").forEach(bauer -> {
-//                log.info(bauer.toString());
-//            });
-//            // for (Customer bauer : repository.findByLastName("Bauer")) {
-//            //  log.info(bauer.toString());
-//            // }
-//            log.info("");
         };
     }
 
-//    @Bean(name="entityManagerFactory")
-//    public LocalSessionFactoryBean sessionFactory() {
-//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-//
-//        return sessionFactory;
-//    }
 }

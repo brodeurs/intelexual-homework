@@ -8,10 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -22,7 +21,6 @@ public class User {
 
     public User() {
     }
-    //    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Id
     @GeneratedValue
     @Column(name = "user_id")
@@ -35,5 +33,9 @@ public class User {
     @Column(name = "email_address", nullable = false)
     @NonNull
     private String emailAddress;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Project> projects = new HashSet<>();
+
 
 }
