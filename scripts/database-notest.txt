@@ -1,0 +1,23 @@
+createdb -U postgres project_db
+
+psql -U postgres -d project_db
+
+select current_database();
+
+
+# Create tables
+
+create table project (
+name varchar(128) not null,
+start_date timestamp not null
+);
+
+create table p_user (
+name varchar(128) not null,
+email_address varchar(128) not null
+);
+
+create table p_file (
+name varchar(128) not null,
+file_type varchar(128) not null
+);
