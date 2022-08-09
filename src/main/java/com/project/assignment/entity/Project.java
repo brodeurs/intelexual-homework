@@ -36,12 +36,12 @@ public class Project {
     @Column(name = "start_date")
     private Date startDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "projects_users",
-            joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+    @ManyToMany(targetEntity = User.class)
+//    @JoinTable(
+//            name = "projects_users",
+//            joinColumns = @JoinColumn(name = "project_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id")
+//    )
     private Collection<User> users = new ArrayList<>();
 
     protected Project() {}
