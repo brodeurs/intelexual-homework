@@ -14,6 +14,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 @EnableJpaRepositories("com.project.assignment.repo")
 @SpringBootApplication
@@ -34,8 +36,11 @@ public class ProjectsAppApplication {
 
             userRepository.save(user);
 
-            project.getUsers().add(user);
-            user.getProjects().add(project);
+
+            Set<User> users = new HashSet<>();
+            users.add(user);
+
+            project.setUsers(users);
 
 
 //            fileRepository.save(file);
