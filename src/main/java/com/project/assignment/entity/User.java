@@ -37,6 +37,6 @@ public class User {
     @NonNull
     private String emailAddress;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(targetEntity = Project.class)
     private Collection<Project> projects = new ArrayList<>();
 }
