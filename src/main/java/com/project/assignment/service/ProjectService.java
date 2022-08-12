@@ -1,5 +1,7 @@
 package com.project.assignment.service;
 
+import com.project.assignment.dto.FileDto;
+import com.project.assignment.dto.ProjectDto;
 import com.project.assignment.entity.File;
 import com.project.assignment.entity.Project;
 import com.project.assignment.entity.User;
@@ -9,8 +11,11 @@ import com.project.assignment.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectService {
@@ -30,33 +35,42 @@ public class ProjectService {
         this.fileService = fileService;
     }
 
-    public List<Project> getProjects() {
+    public List<ProjectDto> getProjects() {
         List<Project> projects;
 
         projects = projectRepository.findAll();
 
+//        List<ProjectDto> projectDtos = new ArrayList<>();
 
-        return projects;
+        List<ProjectDto> projectDtos = projects.stream()
+        .map(project -> new ProjectDto(project))
+        .collect(Collectors.toList());
+
+
+        return projectDtos;
     }
 
-    public Project saveProject(Project projectDto) {
+    public ProjectDto saveProject(ProjectDto projectDto) {
 
 
-            Project project = new Project(projectDto.getName(), projectDto.getStartDate());
+            Project savedProject = new Project(projectDto.getName(), projectDto.getStartDate());
 
-            projectRepository.save(project);
+            savedProject = projectRepository.save(savedProject);
 
-            Set<User> users = userService.saveUsers(projectDto.getUsers());
+//            Set<User> users = userService.saveUsers(projectDto.getUsers());
 
-            project.getUsers().addAll(users);
+//            savedProject.getUsers().addAll(users);
 
-            Set<File> files = fileService.saveFiles(projectDto.getFiles());
+            Set<FileDto> fileDtoSet = new HashSet<>();
+            fileDtoSet.addAll(projectDto.getFiles());
+            Set<File> files = fileService.saveFiles(savedProject, fileDtoSet);
 
-            project.getFiles().addAll(files);
+//            savedProject.getFiles().addAll(files);
+            savedProject = projectRepository.save(savedProject);
 
-            projectRepository.save(project);
+            projectDto = new ProjectDto(savedProject);
 
-        return project;
+        return projectDto;
 
     }
 }

@@ -1,5 +1,6 @@
 package com.project.assignment.service;
 
+import com.project.assignment.dto.UserDto;
 import com.project.assignment.entity.File;
 import com.project.assignment.entity.User;
 import com.project.assignment.repo.UserRepository;
@@ -20,11 +21,19 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    Set<User> saveUsers(Set<User> userDtos) {
+    Set<User> saveUsers(List<UserDto> userDtos) {
 
-        List<User> users = userRepository.saveAll(userDtos);
+        Set<User> usersSet = userDtos.stream()
+                .map(userDto -> new User(userDto.getName(), userDto.getEmailAddress()))
+                .collect(Collectors.toSet());
 
-        Set<User> usersSet = users.stream().collect(Collectors.toSet());
+        List<User> users = userRepository.saveAll(usersSet);
+
+        usersSet = users.stream().collect(Collectors.toSet());
+
+        Set<UserDto> userDtosSet = usersSet.stream()
+                .map(user -> new UserDto(user))
+                .collect(Collectors.toSet());
 
         return usersSet;
     }

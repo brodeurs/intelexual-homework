@@ -1,5 +1,6 @@
 package com.project.assignment.controller;
 
+import com.project.assignment.dto.ProjectDto;
 import com.project.assignment.entity.Project;
 import com.project.assignment.repo.ProjectRepository;
 import com.project.assignment.service.ProjectService;
@@ -20,12 +21,12 @@ public class ProjectController {
     }
 
     @GetMapping("/projects")
-    List<Project> all() {
+    List<ProjectDto> all() {
         return projectService.getProjects();
     }
 
     @PostMapping("/projects")
-    Project newProject(@RequestBody Project newProject) {
+    ProjectDto newProject(@RequestBody ProjectDto newProject) {
         return projectService.saveProject(newProject);
     }
 }
