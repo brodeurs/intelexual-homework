@@ -10,6 +10,7 @@ import net.minidev.json.annotate.JsonIgnore;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -18,15 +19,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 //@Data
-@RequiredArgsConstructor
 @Entity
 @Table(name = "project_user")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class User {
 
     public User() {
+    }
+
+    public User(String name, String emailAddress) {
+        this.name = name;
+        this.emailAddress = emailAddress;
     }
     @Id
     @GeneratedValue
@@ -41,9 +43,8 @@ public class User {
     @NonNull
     private String emailAddress;
 
-//    @ManyToMany(targetEntity = Project.class, mappedBy = "users",
-//            cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
-//    private Set<Project> projects = new HashSet<>();
+    @ManyToMany(mappedBy = "users")
+    private Set<Project> projects = new HashSet<>();
 
 
     public Long getId() {
@@ -68,5 +69,13 @@ public class User {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    public void addProject(Project project) {
+        this.projects.add(project);
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
     }
 }

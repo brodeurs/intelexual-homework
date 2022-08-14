@@ -17,13 +17,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 //@Data
-@RequiredArgsConstructor
 @Entity
-@Table(name = "file")
+@Table(name = "project_file")
 public class File {
 
     public File() {}
 
+    public File(String name, String fileType) {
+        this.name = name;
+        this.fileType = fileType;
+    }
     @Id
     @GeneratedValue
     @Column(name = "file_id")
