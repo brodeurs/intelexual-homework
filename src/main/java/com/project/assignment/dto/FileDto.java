@@ -8,6 +8,7 @@ import lombok.Data;
 //@Data
 public class FileDto {
 
+    private Long id;
     private String name;
     private String fileType;
     @JsonIgnore
@@ -19,11 +20,16 @@ public class FileDto {
 
     public FileDto(File file) {
 
+        this.id = file.getId();
         this.name = file.getName();
         this.fileType = file.getFileType();
 //        ProjectDto projectDto = new ProjectDto(project);
 //        this.project = projectDto;
 
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {

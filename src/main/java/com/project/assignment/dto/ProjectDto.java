@@ -11,6 +11,9 @@ import java.util.List;
 
 //@Data
 public class ProjectDto {
+
+    private Long id;
+
     private String name;
 
     private Date startDate;
@@ -27,7 +30,35 @@ public class ProjectDto {
         return files;
     }
 
-    //    private List<UserDto> users = new ArrayList<>();
+    public List<UserDto> getUsers() {
+        return users;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setUsers(List<UserDto> users) {
+        this.users = users;
+    }
+
+    public void setFiles(List<FileDto> files) {
+        this.files = files;
+    }
+
+    private List<UserDto> users = new ArrayList<>();
     private List<FileDto> files = new ArrayList<>();
 
     public ProjectDto() {
@@ -35,13 +66,14 @@ public class ProjectDto {
     }
 
     public ProjectDto(Project project) {
+        this.setId(project.getId());
         this.name = project.getName();
         this.startDate = project.getStartDate();
 
-//        for (User user : project.getUsers()) {
-//            UserDto userDto = new UserDto(user);
-//            users.add(userDto);
-//        }
+        for (User user : project.getUsers()) {
+            UserDto userDto = new UserDto(user);
+            users.add(userDto);
+        }
 
         for (File file : project.getFiles()) {
             FileDto fileDto = new FileDto(file);
