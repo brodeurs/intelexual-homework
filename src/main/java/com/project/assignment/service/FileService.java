@@ -28,7 +28,7 @@ public class FileService {
         return filesSet;
     }
 
-    Set<File> saveFiles(Project savedProject, Set<FileDto> fileDtos) {
+    Set<File> saveFiles(Project savedProject, List<FileDto> fileDtos) {
 
         Set<File> fileSet = fileDtos.stream()
                 .map(userDto -> new File(userDto.getName(), userDto.getFileType()))
