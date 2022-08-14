@@ -26,9 +26,6 @@ import java.util.Set;
 //@Data
 @Entity
 @Table(name = "project")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Project {
 
     @Id
@@ -42,13 +39,12 @@ public class Project {
     @Column(name = "start_date")
     private Date startDate;
 
-//    @ManyToMany(targetEntity = User.class,
-//            cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH} )
-//    @JoinTable(
-//            name = "project_users",
-//            joinColumns = @JoinColumn(name = "project_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id"))
-//    private Set<User> users = new HashSet<>();
+    @ManyToMany(targetEntity = User.class, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "project_users",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users = new HashSet<>();
 
     @OneToMany(targetEntity = File.class, mappedBy = "project")
     private Set<File> files = new HashSet<>();
@@ -90,5 +86,13 @@ public class Project {
 
     public void setFiles(Set<File> files) {
         this.files = files;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }
