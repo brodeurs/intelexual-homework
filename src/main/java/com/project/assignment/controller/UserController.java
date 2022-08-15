@@ -1,11 +1,10 @@
 package com.project.assignment.controller;
 
-import com.project.assignment.entity.Project;
-import com.project.assignment.entity.User;
-import com.project.assignment.repo.UserRepository;
+import com.project.assignment.dto.UserDto;
+import com.project.assignment.service.UserService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -13,20 +12,17 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/users")
-    List<User> all() {
-        return userRepository.findAll();
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/usersByProjectId")
+    List<UserDto> findUsersByProjectId(@RequestParam Long projectId) {
+        System.out.println("projectId: " + projectId);
+        return userService.findUsersByProjectId(projectId);
     }
 
-    @PostMapping("/users")
-    User newUser(@RequestBody User newUser) {
-        return userRepository.save(newUser);
-    }
-
-}
+ }

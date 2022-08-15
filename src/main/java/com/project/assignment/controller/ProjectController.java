@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,10 +22,13 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @CrossOrigin(origins = "${project.controller.cors.url}")
     @GetMapping("/projects")
-    List<ProjectDto> all() {
-        return projectService.getProjects();
+    List<ProjectDto> all(@RequestParam(defaultValue = "0") Integer pageNo,
+                         @RequestParam(defaultValue = "10") Integer pageSize,
+                         @RequestParam(defaultValue = "id") String sortBy) {
+
+        pageNo = pageNo > 0 ? pageNo-- : pageNo;
+        return projectService.getProjects(pageNo, pageSize, sortBy);
     }
 
     @PostMapping("/projects")

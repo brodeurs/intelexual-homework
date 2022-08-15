@@ -1,6 +1,7 @@
 package com.project.assignment.service;
 
 import com.project.assignment.dto.FileDto;
+import com.project.assignment.dto.UserDto;
 import com.project.assignment.entity.File;
 import com.project.assignment.entity.Project;
 import com.project.assignment.entity.User;
@@ -19,6 +20,7 @@ public class FileService {
     @Autowired
     FileRepository fileRepository;
 
+
     Set<File> getFilesById(Set<Long> userIds) {
 
         List<File> files = fileRepository.findAllById(userIds);
@@ -27,6 +29,30 @@ public class FileService {
 
         return filesSet;
     }
+
+    public List<FileDto> findUsersByProjectId(long project_id) {
+        Set<File> files = null;
+
+        files = fileRepository.findFilesByProjectId(project_id);
+
+
+
+        List<FileDto> fileDtos = files.stream()
+                .map(file -> new FileDto(file))
+                .collect(Collectors.toList());
+
+        System.out.println("=========== UserDtos ===============");
+        fileDtos.stream()
+                .forEach(fileDto -> {
+                    System.out.println("   name: " + fileDto.getName());
+                    System.out.println("   fileType: " + fileDto.getFileType());
+                    System.out.println("   ------------------------------------------");
+                });
+
+
+        return fileDtos;
+    }
+
 
     Set<File> saveFiles(Project savedProject, List<FileDto> fileDtos) {
 

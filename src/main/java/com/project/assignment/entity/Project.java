@@ -47,6 +47,7 @@ public class Project {
     private Set<User> users = new HashSet<>();
 
     @OneToMany(targetEntity = File.class, mappedBy = "project")
+    @JsonIgnore
     private Set<File> files = new HashSet<>();
 
     protected Project() {}

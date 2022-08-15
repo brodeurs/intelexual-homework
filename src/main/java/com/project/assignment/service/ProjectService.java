@@ -8,8 +8,13 @@ import com.project.assignment.entity.Project;
 import com.project.assignment.entity.User;
 import com.project.assignment.repo.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,10 +38,19 @@ public class ProjectService {
         this.fileService = fileService;
     }
 
-    public List<ProjectDto> getProjects() {
+    public List<ProjectDto> getProjects(Integer pageNo, Integer pageSize, String sortBy) {
         List<Project> projects;
 
-        projects = projectRepository.findAll();
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+
+        Page<Project> pagedResult = projectRepository.findAll(paging);
+
+        if (pagedResult.hasContent()) {
+            projects = pagedResult.getContent();
+        } else {
+            projects = new ArrayList<>();
+        }
+//        projects = projectRepository.findAll();
 
 //        List<ProjectDto> projectDtos = new ArrayList<>();
 

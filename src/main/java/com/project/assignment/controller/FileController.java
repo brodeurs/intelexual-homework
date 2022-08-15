@@ -1,30 +1,30 @@
 package com.project.assignment.controller;
 
-import com.project.assignment.entity.File;
-import com.project.assignment.entity.User;
-import com.project.assignment.repo.FileRepository;
+import com.project.assignment.dto.FileDto;
+import com.project.assignment.service.FileService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RestController
 public class FileController {
 
-    private final FileRepository fileRepository;
+    private final FileService fileService;
 
-    public FileController(FileRepository fileRepository) {
-        this.fileRepository = fileRepository;
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
     }
 
-    @GetMapping("/files")
-    List<File> all() {
-        return fileRepository.findAll();
-    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/filesByProjectId")
+    List<FileDto> findFilesByProjectId(@RequestParam Long projectId) {
+        System.out.println("projectId: " + projectId);
 
-    @PostMapping("/files")
-    File newFile(@RequestBody File newFile) {
-        return fileRepository.save(newFile);
+        List<FileDto> files = fileService.findUsersByProjectId(projectId);
+        return files;
     }
 
 }
