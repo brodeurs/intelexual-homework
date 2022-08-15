@@ -12,27 +12,4 @@ public class ProjectsAppApplication {
         SpringApplication.run(ProjectsAppApplication.class, args);
     }
 
-//    @Bean
-//    public CommandLineRunner demo(ProjectRepository projectRepository, UserRepository userRepository, FileRepository fileRepository) {
-//        return (args) -> {
-//            // save a few customers
-//
-//            Project project = new Project("first", new Date(Calendar.getInstance().getTimeInMillis()));
-//
-//            projectRepository.save(project);
-//
-//            User user = new User("Bilbo Baggins", "a@b.com");
-//            File file = new File("My File", "Text");
-//
-//            userRepository.save(user);
-//            fileRepository.save(file);
-//
-//            project.getUsers().add(user);
-//            project.getFiles().add(file);
-//
-//            projectRepository.save(project);
-//
-//        };
-//    }
-
 }
