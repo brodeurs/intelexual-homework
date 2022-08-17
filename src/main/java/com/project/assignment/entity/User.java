@@ -45,7 +45,7 @@ public class User {
     private String emailAddress;
 
     @ManyToMany(mappedBy = "users")
-    @JsonIgnore
+//    @JsonIgnore
     private Set<Project> projects = new HashSet<>();
 
 

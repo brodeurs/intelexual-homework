@@ -23,7 +23,6 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Data
 @Entity
 @Table(name = "project")
 public class Project {
@@ -47,7 +46,7 @@ public class Project {
     private Set<User> users = new HashSet<>();
 
     @OneToMany(targetEntity = File.class, mappedBy = "project")
-    @JsonIgnore
+//    @JsonIgnore
     private Set<File> files = new HashSet<>();
 
     protected Project() {}

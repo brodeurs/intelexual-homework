@@ -45,29 +45,7 @@ class ProjectsAppApplicationTests {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(containsString("[]")))
                 .andDo(print());
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.projects").exists())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.employees[*].employeeId").isNotEmpty())
-                ;
 
     }
 
-//    @Test
-//    public void testAddEmployeeSuccess() throws URISyntaxException
-//    {
-//        final String baseUrl = "http://localhost:"+ serverPort +"/projects/";
-//        URI uri = new URI(baseUrl);
-//
-//        Project project = new Project("test project", new Date(Calendar.getInstance().getTimeInMillis()));
-//
-//        HttpHeaders headers = new HttpHeaders();
-////        headers.set("X-COM-PERSIST", "true");
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//
-//        HttpEntity<Project> request = new HttpEntity<>(project, headers);
-//
-//        ResponseEntity<String> result = this.restTemplate.postForEntity(uri, request, String.class);
-//
-//        //Verify request succeed
-//        Assert.isTrue(201 == result.getStatusCodeValue(), "Status code not 201");
-//    }
 }
