@@ -11,6 +11,7 @@ The Project repository has the annotations required for paging, however, due to 
 1. My local environment is setup with Postgresql 9.x
 2. Database configuration in application.properties uses a database named 'project_db'
 3. Initial table creation was established using hibernate.ddl-auto 'CREATE' setting, then set to 'UPDATE' for testing. If you want to execute this service, you can do the same.
+4. A [SoapUI project file](SoapUI/REST-Project-1-soapui-project.xml) is included that contains a POST method for creating Project and related entities. There are get methods for several entities as well.
 
 ### CORS
 The CORS configuration in the MvcConfig component is set to wildcard settings just for expediency.
